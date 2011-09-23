@@ -1,0 +1,95 @@
+<html>
+
+<head>
+<link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/styles/shCoreDefault.css">
+<link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/styles/shThemeMidnight.css">
+<link type="text/css" rel="stylesheet" href="../css/common.css">
+</head>
+
+<body>
+<div id="navigator">
+1. stuff
+<br>
+2. stuff
+</div>
+
+<header>
+	<h2>Javascript Workshop</h2>
+	<h1>Scope</h1>
+</header>
+
+<div id="content">
+	<div id="page1" class="page">
+	<p>Scope is the visibility and lifetime of variables. When a variable goes out of scope and there are no more references to it, it becomes eligible for disposal by the garbage collector.</p>
+	<p>Javascript has function-level scoping - the only thing that creates a new scope is a function.</p>
+	<p>Let's start with something simple - as you move your mouse over the lines below, the dimmed out portions of code are <em>out of scope</em> when that line is executing.</p>
+
+	<script id="example1-code" type="syntaxhighlighter" class="brush: js"><![CDATA[
+var globalVar = 0;
+
+function scopeTest( param1 ) {
+	var innerVar = 5;
+	console.log( param1 );
+	console.log( globalVar );
+}
+
+scopeTest( 'hello' );
+]]></script>
+	</div>
+
+	<div id="page2" class="page">
+	<p>Block-level scoping is used in some of the more widely used languages, so there's a good chance you're already familiar with it, and if you aren't, it won't hurt to learn.</p>
+	<p>A block is delineated by curly braces. The following example includes two blocks, but since Javascript has function-level scoping the blocks have no effect on scope. Mouse over the lines to see the scope.</p>
+
+	<script id="example2-code" type="syntaxhighlighter" class="brush: js"><![CDATA[
+var globalVar = 0;
+
+// block
+{
+	var blockVar1 = 1;
+}
+
+// conditional statement block
+if( globalVar === 0 ) {
+	var blockVar2 = 2;
+}
+
+function scopeTest( param1 ) {
+	var innerVar = 5;
+	console.log( param1 );
+	console.log( globalVar );
+}
+
+scopeTest( 'hello' );
+]]></script>
+
+	<div style="text-align: center;">
+		<div id="setFunctionScope" class="button left selected">Function Scope</div><div id="setBlockScope" class="button right">Block Scope</div>
+	</div>
+	<p>As you can see, the blocks have no effect on scope - only the function declaration creates a new scope.</p>
+	<p>If you click the 'Block Scope' button, the lines will be highlighted as if the code has block scope. It's important to remember that creating a block in Javascript <em>does not</em> create a local scope - <em>only</em> functions create a new scope.</p>
+	
+	</div>
+
+	<div class="endBar">
+		<div id="backButton" class="button disabled">Back</div>
+		<div id="nextButton" class="button">Next</div>
+	</div>
+
+	<div>
+	Does closure keep all vars in scope? (even un-referenced? use eval to check)
+	Test closure going up multiple levels
+	</div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="../lib/underscore-min.js"></script>
+<script src="../lib/syntaxhighlighter/src/shCore.js"></script>
+<script src="../lib/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+<script src="../js/jsw.js"></script>
+<script src="scope.js"></script>
+
+</body>
+
+</html>

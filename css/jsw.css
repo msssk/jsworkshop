@@ -1,0 +1,126 @@
+body {
+	font-family: Calibri, sans-serif;
+	font-size: 17px;
+	color: rgb(141, 176, 211);
+	background: hsl(213, 37%, 21%);
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	font-family: Candara, sans-serif;
+	width: 900px;
+	margin-top: 4px;
+	margin-bottom: 12px;
+	margin-left: 206px;
+	color: rgb(240, 128, 71);
+	background: hsl(213, 37%, 17%);
+	border: 2px solid rgb(240, 128, 71);
+	border-radius: 6px;
+	padding: 0 4px;
+	text-shadow: 1px 1px 2px hsl(213, 37%, 11%);
+	box-shadow: 2px 2px 3px 2px hsl(213, 37%, 11%);
+}
+
+header h1 {
+	font-size: 1.8em;
+	margin: 0;
+	padding: 0;
+}
+
+header h1:before {
+	letter-spacing: 4px;
+	content: '::';
+}
+
+header h2 {
+	font-size: 1.6em;
+	margin: 0;
+	padding: 0;
+}
+
+#navigator {
+	position: fixed;
+	width: 184px;
+	height: 100%;
+	background: hsl(213, 37%, 17%);
+	padding: 8px;
+}
+
+#content {
+	width: 800px;
+	margin-left: 206px;
+}
+
+#content > div.page {
+	display: none;
+}
+
+div.button {
+	display: inline-block;
+	cursor: pointer;
+	font-family: Segoe UI, sans-serif;
+	font-size: 0.9em;
+	color: hsl(46, 100%, 57%);
+	background: -moz-linear-gradient(top, hsl(211,37%,26%) 0%, hsl(212,38%,15%) 100%);
+	background: -webkit-linear-gradient(top, hsl(211,37%,26%) 0%,hsl(212,38%,15%) 100%);
+	background: -o-linear-gradient(top, hsl(211,37%,26%) 0%,hsl(212,38%,15%) 100%);
+	background: linear-gradient(top, hsl(211,37%,26%) 0%,hsl(212,38%,15%) 100%);
+	border: 1px solid hsl(218, 47%, 11%);
+	border-radius: 3px;
+	padding: 0.3em 1.1em 0.4em 1em;
+	-webkit-transition: all .35s;
+	transition: all .35s;
+}
+
+div.button::selection,
+div.button::-webkit-selection,
+div.button::-moz-selection {
+	background: hsla(0,0%,0%,0);
+}
+
+div.button:hover {
+	box-shadow: 1px 1px 1px hsl(213, 37%, 11%);
+	border-color: hsl(218, 47%, 7%);
+}
+
+div.button:active {
+	color: hsl(46, 100%, 65%);
+	background: -moz-linear-gradient(top, hsl(211,38%,26%) 0%, hsl(211,38%,20%) 65%, hsl(211,39%,15%) 100%);
+	background: -webkit-linear-gradient(top, hsl(211,38%,26%) 0%,hsl(211,38%,20%) 65%,hsl(211,39%,15%) 100%);
+	background: -o-linear-gradient(top, hsl(211,38%,26%) 0%,hsl(211,38%,20%) 65%,hsl(211,39%,15%) 100%);
+	background: linear-gradient(top, hsl(211,38%,26%) 0%,hsl(211,38%,20%) 65%,hsl(211,39%,15%) 100%);
+}
+
+.syntaxhighlighter .line.alt1,
+.syntaxhighlighter .line.alt2 {
+	background-color: #0f192a;
+}
+
+.syntaxhighlighter .line:hover {
+	background-color: hsl(213, 37%, 17%);
+}
+
+div.line.oos {
+	opacity: 0.15;
+}
+
+code {
+	font-family: Consolas, Bitstream Vera Sans Mono, monospace;
+	color: hsl(210, 68%, 54%);
+	background-color: hsl(213, 37%, 17%);
+	border: 1px solid hsl(218, 47%, 11%);
+	border-radius: 3px;
+}
+
+.endBar {
+	text-align: right;
+	width: 836px;
+	background: hsl(213, 37%, 17%);
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 32px 24px;
+	border-bottom-left-radius: 32px 24px;
+	padding: 4px 32px;
+	box-shadow: -3px 3px 7px hsl(213, 37%, 15%) inset;
+}
