@@ -5,10 +5,19 @@ Corbel or Segoe UI for notes
 body {
 	font-family: Calibri, sans-serif;
 	font-size: 17px;
-	color: rgb(141, 176, 211);
+	color: hsl(210, 44%, 69%);
 	background: hsl(213, 37%, 21%);
 	margin: 0;
 	padding: 0;
+}
+
+a:link,
+a:visited {
+	color: hsl(30, 100%, 46%);
+}
+
+span[title] {
+	border-bottom: 1px dotted hsla(210, 44%, 69%, 0.3);
 }
 
 header {
@@ -66,6 +75,13 @@ header a:active {
 
 #content > div.page {
 	display: none;
+}
+
+.page h2 {
+	font-family: Candara, sans-serif;
+	text-shadow: 1px 1px 2px hsl(213, 37%, 14%);
+	text-decoration: underline;
+	margin: 0;
 }
 
 div.button {

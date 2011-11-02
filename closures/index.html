@@ -1,0 +1,74 @@
+<html>
+
+<head>
+<link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/styles/shCoreDefault.css">
+<link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/styles/shThemeMidnight.css">
+<link type="text/css" rel="stylesheet" href="../css/common.css">
+</head>
+
+<body>
+<div id="navigator">
+1. stuff
+<br>
+2. stuff
+</div>
+
+<header>
+	<h2><a href="../">Javascript Workshop</a></h2>
+	<h1>Scope</h1>
+</header>
+
+<div id="content">
+	<div id="page1" class="page">
+	Can a non-function object create a sort of closure? -- NO
+	<script id="example2-code" type="syntaxhighlighter" class="brush: js"><![CDATA[
+function lifeExtender() {
+	var saveMe = {
+		prop1: 'val1'
+	};
+	return {
+		saved: saveMe
+	};
+}
+
+var le1 = lifeExtender();
+var le2 = lifeExtender();
+le1.saved.prop1 = 'newval';
+print( le1.saved.prop1 );
+print( le2.saved.prop1 );
+]]></script>
+
+	Does closure keep all vars in scope? (even un-referenced? use eval to check)
+
+	Test closure going up multiple levels
+	Nested closure - does this work?
+	function f1() {
+		var f1Var;
+		function f2() {
+			function f3() {
+				var closure = f1Var;
+			}
+		}
+	}
+	
+	Using closures for private members can inhibit testing
+	http://www.adequatelygood.com/2010/7/Writing-Testable-JavaScript
+	</div>
+
+	<div class="endBar">
+		<div id="backButton" class="button disabled">Back</div>
+		<div id="nextButton" class="button">Next</div>
+	</div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="../lib/underscore-min.js"></script>
+<script src="../lib/syntaxhighlighter/src/shCore.js"></script>
+<script src="../lib/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+<script src="../js/jsw.js"></script>
+<script src="closures.js"></script>
+
+</body>
+
+</html>

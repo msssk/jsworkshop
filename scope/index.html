@@ -1,5 +1,12 @@
 <html>
 
+<!--
+Scaling:
+Create individually stored and addressable resources for each page
+- pre-compile to static pages
+- load page content dynamically, use history.pushState
+-->
+
 <head>
 <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/styles/shCoreDefault.css">
 <link type="text/css" rel="stylesheet" href="../lib/syntaxhighlighter/styles/shThemeMidnight.css">
@@ -20,25 +27,45 @@
 
 <div id="content">
 	<div id="page1" class="page">
+	<h2>Scope in Javascript</h2>
 	<p>Scope is the visibility and lifetime of variables. When a variable goes out of scope and there are no more references to it, it becomes eligible for disposal by the garbage collector.</p>
 	<p>Javascript has function-level scoping - the only thing that creates a new scope is a function.</p>
-	<p>Let's start with something simple - as you move your mouse over the lines below, the dimmed out portions of code are <em>out of scope</em> when that line is executing.</p>
+	<p>Let's start with something simple - as you move your mouse over the lines below, the dimmed portions of code are <em>out of scope</em> when that line is executing.</p>
 
 	<script id="example1-code" type="syntaxhighlighter" class="brush: js"><![CDATA[
 var globalVar = 0;
 
 function scopeTest( param1 ) {
 	var innerVar = 5;
-	console.log( param1 );
-	console.log( globalVar );
+	print( param1 );
+	print( globalVar );
 }
 
 scopeTest( 'hello' );
 ]]></script>
+
+	<p>If you make a reference to an out of scope variable, it's the same as making a reference to a non-existent variable - you get a ReferenceError. Be careful though, because if you make an <em>assignment</em> to a non-existent or out of scope variable, you will make an implicit global assignment.</p>
+
+	<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+function implicitAssignment() {
+	undeclaredVariable = 5;
+}
+]]></script>
+
+	<p>Is the same as:</p>
+
+	<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+var undeclaredVariable;
+function implicitAssignment() {
+	undeclaredVariable = 5;
+}
+]]></script>
 	</div>
 
+
 	<div id="page2" class="page">
-	<p>Block-level scoping is used in some of the more widely used languages, so there's a good chance you're already familiar with it, and if you aren't, it won't hurt to learn.</p>
+	<h2>Block-level Scoping</h2>
+	<p>Block-level scoping is used in some of the more widely used languages (Java, C/C++), so there's a good chance you're already familiar with it, and if you aren't, it won't hurt to learn.</p>
 	<p>A block is delineated by curly braces. The following example includes two blocks, but since Javascript has function-level scoping the blocks have no effect on scope. Mouse over the lines to see the scope.</p>
 
 	<script id="example2-code" type="syntaxhighlighter" class="brush: js"><![CDATA[
@@ -56,29 +83,119 @@ if( globalVar === 0 ) {
 
 function scopeTest( param1 ) {
 	var innerVar = 5;
-	console.log( param1 );
-	console.log( globalVar );
+	print( param1 );
+	print( globalVar );
 }
 
 scopeTest( 'hello' );
 ]]></script>
 
-	<div style="text-align: center;">
+	<div style="text-align: center; margin-top: 6px;">
 		<div id="setFunctionScope" class="button left selected">Function Scope</div><div id="setBlockScope" class="button right">Block Scope</div>
 	</div>
-	<p>As you can see, the blocks have no effect on scope - only the function declaration creates a new scope.</p>
-	<p>If you click the 'Block Scope' button, the lines will be highlighted as if the code has block scope. It's important to remember that creating a block in Javascript <em>does not</em> create a local scope - <em>only</em> functions create a new scope.</p>
+	<p>As you can see, even variables declared within blocks are in the global scope - only the function declaration creates a new scope.</p>
+	<p>If you click the 'Block Scope' button, the lines will be dimmed as if the code has block scope. It's important to remember that creating a block in Javascript <em>does not</em> create a local scope - <em>only</em> functions create a new scope.</p>
 	
+	</div>
+
+
+	<div id="page3" class="page">
+	<h2>Variable Declarations and Hoisting</h2>
+	<p>Variable declarations are essentially <span title="hoisted: raised">hoisted</span> up to the top of the scope they are declared in - any variable declaration or function definition is available throughout the scope, even <em>before</em> the line it is declared on.</p>
+
+	<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+var foo1 = 1;
+foo1 = 5;
+var foo2 = 2;
+]]></script>
+
+	<p>Is the same as:</p>
+
+	<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+var foo1 = 1;
+var foo2;
+foo1 = 5;
+foo2 = 2;
+]]></script>
+
+	<p>This is why it is good practice to declare all of your variables at the top of the scope. You aren't gaining any efficiency by avoiding un-necessary declarations:</p>
+
+	<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+function tryingToBeEfficient( param1 ) {
+	if( !param1 ) {
+		return false;
+	}
+
+	if( param1 === 'x' ) {
+		var foo = getWidth( param1 );
+	}
+	else {
+		var bar = getHeight( param1 );
+	}
+}
+]]></script>
+
+	<p>Is the same as:</p>
+
+	<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+function tryingToBeEfficient( param1 ) {
+	var foo;
+	var bar;
+
+	if( !param1 ) {
+		return false;
+	}
+
+	if( param1 === 'x' ) {
+		foo = getWidth( param1 );
+	}
+	else {
+		bar = getHeight( param1 );
+	}
+}
+]]></script>
+
+	<p>While it is commonly recommended that you use a single <code>var</code> statement per scope, I have not encountered any justification for why it is better than one <code>var</code> statement per variable, all at the top of the scope.</p>
+
+	<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+var foo = 1,
+	bar = 'yes',
+	baz;
+]]></script>
+
+	<p>I prefer a single <code>var</code> statement per variable since it makes it easier to cut and paste variable declarations when refactoring.</p>
+
+	<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+var foo = 1;
+var bar = 'yes';
+var baz;
+]]></script>
+
+	<p>Keep in mind that while variable <em>declarations</em> are hoisted, <em>assignment</em> is <b>not</b>.</p>
+
+	<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+var foo1 = typeof foo2; // foo1 = 'undefined'
+var foo2 = typeof foo1; // foo2 = 'string'
+var foo3 = foo4; // ReferenceError
+
+]]></script>
+
+	<p><code>foo1</code> = 'undefined' because the declaration of <code>foo2</code> has been hoisted, but it has not yet been assigned any value.<br>
+	<code>foo2</code> = 'string' because <code>foo1</code> has been declared and assigned the string value 'undefined'.<br>
+	The assignment of <code>foo4</code> to <code>foo3</code> throws an error because <code>foo4</code> has not been declared.
+	</p>
+
+	<p>Further reading: Ben Cherry, <a href="http://www.adequatelygood.com/2010/2/JavaScript-Scoping-and-Hoisting">Javascript Scoping and Hoisting</a></p>
+	</div>
+
+
+	<div id="page4" class="page">
+	<h2>Simulating Block-level Scoping</h2>
 	</div>
 
 	<div class="endBar">
 		<div id="backButton" class="button disabled">Back</div>
 		<div id="nextButton" class="button">Next</div>
-	</div>
-
-	<div>
-	Does closure keep all vars in scope? (even un-referenced? use eval to check)
-	Test closure going up multiple levels
 	</div>
 
 </div>
